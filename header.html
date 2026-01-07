@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COCTAIL: COVID19 Clinical Trial And Intervention Literature</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FAF9F6;
+        }
+
+        .header {
+            background-color: #FAF9F6;
+            color: #B22222;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .header a {
+            color: inherit;
+            text-decoration: none;
+        }        
+
+        .search-container {
+            position: relative;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .search-container select {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            width: calc(40% + 2px);
+            max-height: 150px;
+            overflow-y: auto;
+            border-radius: 4px;
+            padding: 5px;
+            top: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            box-sizing: border-box;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            text-align: justify;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        .overview-section {
+            margin-bottom: 30px;
+        }
+
+        .overview-content {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+            width: 100%;
+        }
+
+        .panel-heading h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .panel-heading p {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .panel-heading em {
+            font-style: italic;
+            color: #00000;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .action-button:last-child {
+            margin-right: 0;
+        }
+
+        .action-button:hover {
+            background-color: #0B5BD7;
+        }
+
+        /* Host Pathogen section */
+        .host-pathogen-section {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .host-pathogen-section strong {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header h2, .header h3 {
+                font-size: 16px;
+            }
+
+            .header img {
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .search-container select {
+                width: 90%;
+                max-width: none;
+            }
+
+            .content {
+                width: 95%;
+            }
+
+            table {
+                width: 100%;
+                max-width: none;
+            }
+
+            img {
+                width: 100%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.php">
+            <img alt="COCTAIL Logo" src="images/coctail_logo.png" style="width: 400px;">
+            <h1>COVID RESOURCES @ HOST-PATHOGEN NETWORK</h1>
+            <h2>The <u>CO</u>VID-19 <u>C</u>linical <u>T</u>rial <u>A</u>nd <u>I</u>ntervention <u>L</u>iterature Hub</h2>
+            <h3>an <a href="http://egybio.net"><u>Egybio</u></a> project</h3>
+        </a>
+    </div>
+
+    <div class="search-container">
+        <form id="searchForm" action="search.php" method="GET">
+            <select name="interventionType" id="interventionType">
+                <option value="" disabled selected>Search by the type of intervention</option>
+                <option value="Drug(s)">Drug(s)</option>
+                <option value="Vaccine">Vaccine</option>
+                <option value="Other">Other</option>
+            </select>
+            <div id="dropdown" class="dropdown-content"></div>
+            <input type="submit" value="Search" class="action-button">
+        </form>
+    </div>
+
+    <div class="content">
+        <div class="overview-section">
+            <h2>The COCTAIL Repository</h2>
+            <div class="overview-content">
+                <p>The COVID-19 Clinical Trial And Intervention Literature Hub, known as COCTAIL, is an active database comprising an evidence table that includes papers extracted from PubMed. These papers report on clinical and epidemiological studies, including clinical trials, case reports, or meta-analyses, related to the COVID-19 pandemic.</p>
+            </div>
+        </div>
+    </div>
+
+    <table align="center" cellpadding="1" cellspacing="1" style="width: 560px;">
+        <tbody>
+            <tr>
+                <td style="text-align: center;"><a href="https://bit.ly/coronatrials" target="_blank"><img alt="Keywords_Cloud" src="images/Keywords_cloud.png" style="width: 548px;" /></a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center;"><strong><span style="font-family:arial,helvetica,sans-serif;">Curators</span></strong></p>
+
+    <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:560px;">
+        <tbody>
+            <tr>
+                <td><img alt="Mahmoud" src="images/Mahmoud.jpg" style="height: 200px;" /></td>
+                <td><img alt="Shaimaa" src="images/Shaimaa.jpg" style="height: 200px;" /></td>
+                <td><img alt="Prof.RKA" src="images/Prof.RKA.jpg" style="height: 200px;" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: center;"><br />
+                <a href="https://www.linkedin.com/in/mahmoudfaheem/" target="_blank"><span style="font-family:arial,helvetica,sans-serif;">Mahmoud Faheem</span></a><br />
+                &nbsp;</td>
+                <td style="text-align: center;"><a href="https://www.linkedin.com/in/shaimaa-hegazy-3a63a3177/" target="_blank"><span style="font-family:arial,helvetica,sans-serif;">Shaimaa Hegazy</span></a></td>
+                <td style="text-align: center;"><span style="font-family:arial,helvetica,sans-serif;"><a href="http://egybio.net/people/rka.html" target="_blank">Ramy K. Aziz</a></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="host-pathogen-section">
+        <p><strong>&quot;Host Pathogen&quot; was founded in 2009 by:</strong></p>
+        <ul style="list-style-type: none; padding: 0;">
+            <li><strong>Prof. Malak Kotb, PhD</strong></li>
+            <li><strong>Prof. Ramy K. Aziz, PhD</strong></li>
+        </ul>
+    </div>
+</body>
+</html>
